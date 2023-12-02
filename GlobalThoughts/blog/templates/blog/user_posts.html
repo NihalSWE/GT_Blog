@@ -1,0 +1,92 @@
+{% extends '../blog/base.html' %} 
+{% block title %}User Post{% endblock %} 
+{% block css %}
+  {% load static %}
+
+  <style>
+    .post-card {
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      width: 100%; /* Adjust the width as needed */
+      margin: 20px auto; /* Center the card and add margin */
+    }
+
+    .post-card:hover {
+      transform: scale(1.02);
+    }
+
+    .article-metadata {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .article-metadata a {
+      margin-right: 10px;
+    }
+
+    .article-metadata img {
+      width: 50px; /* Adjust the image size as needed */
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .article-content {
+      color: #555;
+    }
+  </style>
+{% endblock  %} 
+
+{% block body %}
+  {% load static %}
+
+  <div class="container">
+    <div class="row my-4">
+        <h1 class="mb-3">Posts by {{ view.kwargs.username }}({{ page_obj.paginator.count }})</h1>
+      {% for post in posts %}
+        <div class="col-md-8 offset-md-2">
+          <div class="card post-card border shadow">
+            <div class="card-body">
+              <div class="article-metadata">
+                <img class="rounded-circle" src="{{post.author.profile.image.url}}">
+                <a href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              </div>
+              <hr />
+              <h2 class="card-title"><a href="{% url 'Post-detail' post.id %}">{{ post.title }}</a></h2>
+              <p class="card-text article-content">{{ post.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      {% if is_paginated %}
+  <div class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <a class="btn btn-secondary border shadow mx-2" href="?page=1">&laquo; First</a>
+      <a class="btn btn-secondary border shadow mx-2" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <a class="btn btn-secondary border shadow mx-2 active" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-secondary border shadow mx-2" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a class="btn btn-secondary border shadow mx-2" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-secondary border shadow mx-2" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+  </div>
+{% endif %}
+    </div>
+  </div>
+{% endblock %} 
+
+{% block js %}
+  <!-- Add your JavaScript code here if needed -->
+{% endblock %}

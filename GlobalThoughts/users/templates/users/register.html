@@ -1,0 +1,55 @@
+{% extends '../blog/base.html' %}
+
+
+
+{% block title %}Registration{% endblock %}
+{% block css %}
+{% load static %}
+
+<style>
+     .form-group label {
+        width: 100px; /* Adjust the width as needed */
+        display: inline-block;
+     }
+</style>
+
+{% endblock css %}
+{% block body %}
+{% load static %}
+
+<section class="register-div py-5">
+    <div class="container">
+      <div class="row my-3">
+       <div class="col-sm-8 offset-sm-2 border shadow">
+        <div class="card-body text-dark">
+        <div class="p-3 bg-dark text-light">
+        <h3 class="text-center text-light">Registration</h3>
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+     {% for fm in form %}
+       <div class="form-group mx-4 my-4">
+         {{fm.label_tag}}{{fm}}<small class="text-danger">{{fm.errors|striptags}}</small>
+       </div>
+     {% endfor %}
+            <div class="form-group text-center mx-auto">
+                <button class="btn btn-secondary border shadow" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <br>
+     <div class="text-center text-primary fw-bold"><small>Existing User ? <a href="{% url 'Login' %}"
+        class="text-danger">Login Now</a> </small></div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    
+    
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends '../blog/base.html' %}
+
+{% block title %}About{% endblock %}
+{% block css %}
+{% load static %}
+
+<style>
+    /* Add any custom CSS styles for the card here */
+    .developer-card {
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .developer-image {
+        max-width: 100%;
+        border-radius: 50%;
+    }
+
+    .summary-section {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% endblock css %}
+{% block body %}
+{% load static %}
+
+<!-- Developer Card -->
+<div class="developer-card border shadow">
+   
+    <h2>Md. Mahamudur Rahman Nihal</h2>
+    <p>Software Engineer</p>
+    <p>Email: mahamudur35-2563@diu.edu.bd</p>
+    <!-- Add more information as needed -->
+</div>
+
+<!-- Summary Section -->
+<div class="summary-section border shadow">
+    <h2>About This Website</h2>
+    <p>Welcome to my blog project! This website is a platform where I share my thoughts, experiences, and insights in the world of software development. Explore various topics related to programming, technology, and more.
+        Developed GT Blogs, a user-friendly website encouraging a diverse community to share and explore various topics effortlessly. The emphasis is on creating an enjoyable and seamless space for the delight of blogging.
+    </p>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

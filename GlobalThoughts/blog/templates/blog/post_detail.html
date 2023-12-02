@@ -1,0 +1,73 @@
+{% extends '../blog/base.html' %} 
+{% block title %}Post Detail{% endblock %} 
+{% block css %}
+  {% load static %}
+
+  <style>
+    .post-card {
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      width: 100%; /* Adjust the width as needed */
+      margin: 20px auto; /* Center the card and add margin */
+    }
+
+    .post-card:hover {
+      transform: scale(1.02);
+    }
+
+    .article-metadata {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .article-metadata a {
+      margin-right: 10px;
+    }
+
+    .article-metadata img {
+      width: 50px; /* Adjust the image size as needed */
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .article-content {
+      color: #555;
+    }
+  </style>
+{% endblock  %} 
+
+{% block body %}
+  {% load static %}
+
+  <div class="container">
+    <div class="row my-4">
+      <div class="col-md-8 offset-md-2">
+        <div class="card post-card border shadow">
+          <div class="card-body">
+            <div class="article-metadata">
+              <img class="rounded-circle" src="{{ object.author.profile.image.url }}">
+              <a href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+              <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+              {% if object.author == user %}
+                <div>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1 border shadow" href="{% url 'Post-update' object.id %}">update</a>
+                  <a class="btn btn-danger btn-sm mt-1 mb-1 border shadow" href="{% url 'Post-delete' object.id %}">Delete</a>
+                </div>
+                {% endif %}
+            </div>
+            <hr />
+            <h2 class="card-title">{{ object.title }}</h2>
+            <p class="card-text article-content">{{ object.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %} 
+
+{% block js %}
+  <!-- Add your JavaScript code here if needed -->
+{% endblock %}
